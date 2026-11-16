@@ -1,0 +1,26 @@
+[package]
+name = "cardkit"
+description = "PAN validation, brand detection, BIN lookup, and safe masking"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[features]
+# The default build is suitable for native applications and the CLI.
+default = ["std"]
+# `std` enables runtime CSV loading and the standard error trait. Build with
+# `--no-default-features` to check the core types on bare-metal/WASM targets.
+std = ["thiserror/std", "dep:csv", "dep:serde"]
+
+[dependencies]
+thiserror.workspace = true
+csv = { workspace = true, optional = true }
+serde = { workspace = true, optional = true }
+
+[dev-dependencies]
+proptest.workspace = true
+
+[lints]
+workspace = true

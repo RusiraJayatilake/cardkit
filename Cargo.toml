@@ -1,0 +1,29 @@
+# A Cargo workspace keeps the reusable library separate from the command-line front end. 
+# The library can later be published or embedded (including WASM) without pulling in CLI dependencies such as clap
+[workspace]
+resolver = "3"
+members = ["crates/cardkit", "crates/cardkit-cli"]
+
+# Running `cargo run` at the repository root should run the CLI. 
+# The library can still be selected explicitly with `cargo test -p cardkit`.
+default-members = ["crates/cardkit-cli"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.85"
+license = "MIT OR Apache-2.0"
+publish = false
+
+# Shared dependency versions prevent the library and CLI from resolving different versions of the same crate.
+[workspace.dependencies]
+cardkit = { path = "crates/cardkit" }
+clap = { version = "4.5", features = ["derive"] }
+csv = "1"
+proptest = "1"
+serde = { version = "1", features = ["derive"] }
+thiserror = { version = "2", default-features = false }
+
+[workspace.lints.rust]
+# This project handles sensitive data; keep the code free of unsafe blocks.
+unsafe_code = "forbid"

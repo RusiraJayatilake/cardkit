@@ -1,0 +1,21 @@
+[package]
+name = "cardkit-cli"
+description = "Command-line front end for the cardkit library"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+publish.workspace = true
+
+# Package name and binary name differ so users run `cardkit`, not the less
+# friendly `cardkit-cli`.
+[[bin]]
+name = "cardkit"
+path = "src/main.rs"
+
+[dependencies]
+cardkit.workspace = true
+clap.workspace = true
+
+[lints]
+workspace = true
